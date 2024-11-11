@@ -1,1 +1,71 @@
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacts Database</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>Contacts</h1>
+    <table border="1" id="contact-table">
+        <thead>
+            <tr>
+                <th>Slot #</th>
+                <th>Number</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- This is where the contacts will be dynamically added -->
+        </tbody>
+    </table>
+    
+    <script>
+        // Step 1: Initialize an empty array to hold the contacts
+        let contacts = [];
+
+        // Step 2: Function to display the contacts in the table
+        function displayContacts() {
+            const tableBody = document.getElementById('contact-table').getElementsByTagName('tbody')[0];
+            // Clear current table rows
+            tableBody.innerHTML = "";
+            // Add each contact to the table
+            contacts.forEach((contact, index) => {
+                const row = tableBody.insertRow();
+                const cell1 = row.insertCell(0);
+                const cell2 = row.insertCell(1);
+                cell1.textContent = index;
+                cell2.textContent = contact;
+            });
+        }
+
+        // Step 3: Loop to handle user input
+        let continueSelecting = true;
+
+        while (continueSelecting) {
+            // Prompt user to enter a contact name
+            let contactName = prompt("Enter a contact name:");
+            if (contactName) {
+                // Add the contact to the array
+                contacts.push(contactName);
+                // Display the updated contact list
+                displayContacts();
+            }
+
+            // Ask if the user wants to add another contact
+            let anotherSelection = prompt("Do you want to add another contact? (y/n)").toLowerCase();
+            if (anotherSelection !== 'y') {
+                continueSelecting = false;
+            }
+        }
+
+        // Step 4: Display the exit message once user opts out of the loop
+        document.body.innerHTML += `
+            <h2>Thank you for using the Contacts Database!</h2>
+            <p>Goodbye!</p>
+        `;
+    </script>
+</body>
+</html>
